@@ -1,18 +1,37 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
-import { ArrowLeft, ChevronLeft, ChevronRight, MapPin, Check } from "lucide-react";
-import { getProductById } from "../components/productsData";
-import { getCategoryById, getSubcategoryById } from "../components/categoriesData";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+  Check,
+} from "lucide-react";
+import { useProductById } from "@/hooks/use-products";
+import {
+  getCategoryById,
+  getSubcategoryById,
+} from "../components/categoriesData";
+import { getProductImageUrl } from "@/lib/supabaseClient";
 
 export default function ProdottoDettaglio() {
-  const params = new URLSearchParams(window.location.search);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
   const id = params.get("id");
-  const product = getProductById(id);
+  const { data: product, isLoading, isError } = useProductById(id);
   const [currentImage, setCurrentImage] = useState(0);
 
-  if (!product) {
+  if (isLoading) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
+        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (isError || !product) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
         <h1 className="text-2xl font-bold text-[#1A1A1A] mb-4 font-display">Prodotto non trovato</h1>
@@ -23,15 +42,22 @@ export default function ProdottoDettaglio() {
     );
   }
 
-  const category = getCategoryById(product.categoryId);
-  const subcategory = getSubcategoryById(product.categoryId, product.subcategoryId);
+  const category = getCategoryById(product.category);
+  const subcategory = getSubcategoryById(
+    product.category,
+    product.subcategory
+  );
+
+  const images = product.images ?? [];
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % product.images.length);
+    if (!images.length) return;
+    setCurrentImage((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + product.images.length) % product.images.length);
+    if (!images.length) return;
+    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
   };
 
   return (
@@ -45,7 +71,7 @@ export default function ProdottoDettaglio() {
             </Link>
             <span>/</span>
             <Link
-              to={createPageUrl(`CategoriaDettaglio?categoria=${product.categoryId}`)}
+              to={createPageUrl(`CategoriaDettaglio?categoria=${product.category}`)}
               className="hover:text-[#1A1A1A]"
             >
               {category?.name}
@@ -55,7 +81,7 @@ export default function ProdottoDettaglio() {
                 <span>/</span>
                 <Link
                   to={createPageUrl(
-                    `SottocategoriaDettaglio?categoria=${product.categoryId}&sottocategoria=${product.subcategoryId}`
+                    `SottocategoriaDettaglio?categoria=${product.category}&sottocategoria=${product.subcategory}`
                   )}
                   className="hover:text-[#1A1A1A]"
                 >
@@ -80,12 +106,14 @@ export default function ProdottoDettaglio() {
               transition={{ duration: 0.6 }}
             >
               <div className="relative rounded-xl overflow-hidden bg-[#F5F5F5] aspect-square">
-                <img
-                  src={product.images[currentImage]}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-                {product.images.length > 1 && (
+                {images.length > 0 && (
+                  <img
+                    src={getProductImageUrl(images[currentImage])}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+                {images.length > 1 && (
                   <>
                     <button
                       onClick={prevImage}
@@ -113,9 +141,9 @@ export default function ProdottoDettaglio() {
                   </>
                 )}
               </div>
-              {product.images.length > 1 && (
+              {images.length > 1 && (
                 <div className="grid grid-cols-4 gap-3 mt-4">
-                  {product.images.map((img, idx) => (
+                  {images.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setCurrentImage(idx)}
@@ -123,7 +151,11 @@ export default function ProdottoDettaglio() {
                         idx === currentImage ? "border-[#1A1A1A]" : "border-[#E5E5E5] hover:border-[#888888]"
                       }`}
                     >
-                      <img src={img} alt={`${product.name} ${idx + 1}`} className="w-full h-full object-cover" />
+                      <img
+                        src={getProductImageUrl(img)}
+                        alt={`${product.name} ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                      />
                     </button>
                   ))}
                 </div>
@@ -150,22 +182,26 @@ export default function ProdottoDettaglio() {
               </div>
 
               {/* Features */}
-              <div className="mb-8">
-                <h2 className="text-lg font-semibold text-[#1A1A1A] mb-4 font-display">Caratteristiche principali</h2>
-                <ul className="space-y-2">
-                  {product.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <Check className="w-4 h-4 text-[#1A1A1A] mt-0.5 shrink-0" />
-                      <span className="text-sm text-[#555555]">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {(product.features ?? []).length > 0 && (
+                <div className="mb-8">
+                  <h2 className="text-lg font-semibold text-[#1A1A1A] mb-4 font-display">
+                    Caratteristiche principali
+                  </h2>
+                  <ul className="space-y-2">
+                    {(product.features ?? []).map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <Check className="w-4 h-4 text-[#1A1A1A] mt-0.5 shrink-0" />
+                        <span className="text-sm text-[#555555]">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Category badge */}
               <div className="mb-8">
                 <Link
-                  to={createPageUrl(`CategoriaDettaglio?categoria=${product.categoryId}`)}
+                  to={createPageUrl(`CategoriaDettaglio?categoria=${product.category}`)}
                   className="inline-flex items-center gap-2 text-xs text-[#888888] hover:text-[#1A1A1A] transition-colors"
                 >
                   <span className="px-3 py-1.5 bg-[#F5F5F5] rounded-full">
@@ -194,7 +230,7 @@ export default function ProdottoDettaglio() {
               </div>
 
               <Link
-                to={createPageUrl(`CategoriaDettaglio?categoria=${product.categoryId}`)}
+                to={createPageUrl(`CategoriaDettaglio?categoria=${product.category}`)}
                 className="inline-flex items-center gap-2 text-[#555555] hover:text-[#1A1A1A] text-sm transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" /> Torna alla categoria

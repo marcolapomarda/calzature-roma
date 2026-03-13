@@ -3,18 +3,27 @@ import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
-import { getCategoryById, getSubcategoryById, categories } from "../components/categoriesData";
-import { getProductsBySubcategory } from "../components/productsData";
+import {
+  getCategoryById,
+  getSubcategoryById,
+  categories,
+} from "../components/categoriesData";
+import { useProductsBySubcategory } from "@/hooks/use-products";
+import { getProductImageUrl } from "@/lib/supabaseClient";
 
 export default function SottocategoriaDettaglio() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const categoryId = params.get("categoria");
   const subcategoryId = params.get("sottocategoria");
-  
+
   const category = getCategoryById(categoryId);
   const subcategory = getSubcategoryById(categoryId, subcategoryId);
-  const products = getProductsBySubcategory(categoryId, subcategoryId);
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+  } = useProductsBySubcategory(categoryId, subcategoryId);
 
   if (!category || !subcategory) {
     return (
@@ -23,6 +32,27 @@ export default function SottocategoriaDettaglio() {
         <Link to={createPageUrl("Prodotti")} className="text-[#555555] hover:text-[#1A1A1A] flex items-center gap-2 text-sm">
           <ArrowLeft className="w-4 h-4" /> Torna ai prodotti
         </Link>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
+        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
+        <h1 className="text-2xl font-bold text-[#1A1A1A] mb-4 font-display">
+          Errore nel caricamento dei prodotti
+        </h1>
+        <p className="text-sm text-[#555555] max-w-md">
+          Riprova più tardi o contattaci se il problema persiste.
+        </p>
       </div>
     );
   }
@@ -100,7 +130,7 @@ export default function SottocategoriaDettaglio() {
                 >
                   <div className="aspect-[4/3] overflow-hidden relative">
                     <img
-                      src={product.images[0]}
+                      src={getProductImageUrl(product.images?.[0])}
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

@@ -32,6 +32,7 @@ const IMG = {
       description: "Una selezione pensata per ogni occasione e ogni stile. Dalle scarpe da ufficio agli stivali invernali, dai sandali estivi alle décolleté eleganti.",
       heroImage: IMG.donna,
       subcategories: [
+        { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.donna },
         { id: "decollete-eleganti", name: "Décolleté ed eleganti", image: IMG.donnaHeels },
         { id: "stivali-tronchetti", name: "Stivali e tronchetti", image: IMG.donnaBoots },
         { id: "sandali-estivi", name: "Sandali estivi", image: IMG.donnaSandals },
@@ -45,6 +46,7 @@ const IMG = {
       description: "Calzature per l'uomo moderno: dalla scarpa elegante da lavoro alla sneaker casual, dal mocassino classico allo stivale robusto.",
       heroImage: IMG.uomo,
       subcategories: [
+        { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.uomo },
         { id: "eleganti-classiche", name: "Eleganti e classiche", image: IMG.uomoDress },
         { id: "mocassini", name: "Mocassini", image: IMG.uomo },
         { id: "casual-sneakers-uomo", name: "Casual e sneakers", image: IMG.uomoCasual },
@@ -57,6 +59,7 @@ const IMG = {
         description: "Ciabatte e pantofole pensate per il massimo comfort quotidiano. Modelli pratici e comodi, ideali per la casa, il tempo libero e i momenti di relax.",
         heroImage: IMG.ciabatte,
         subcategories: [
+          { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.ciabatte },
           { id: "ciabatte-donna", name: "Ciabatte donna", image: IMG.donna },
           { id: "ciabatte-uomo", name: "Ciabatte uomo", image: IMG.uomo },
         ],
@@ -68,6 +71,7 @@ const IMG = {
       description: "Pensate per chi non rinuncia al comfort senza sacrificare lo stile. Scarpe leggere, con plantare estraibile, chiusure facili e materiali morbidi per tutta la giornata.",
       heroImage: IMG.uomoCasual,
       subcategories: [
+        { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.uomoCasual },
         { id: "comfort-donna", name: "Comfort donna", image: IMG.donna },
         { id: "comfort-uomo", name: "Comfort uomo", image: IMG.uomoCasual },
         { id: "plantare-estraibile", name: "Plantare estraibile", image: IMG.donna },
@@ -82,6 +86,7 @@ const IMG = {
       description: "Calzature pensate per i più piccoli: resistenti, comode e sicure. Modelli per ogni stagione e ogni esigenza, dalla scuola al tempo libero.",
       heroImage: IMG.bambino,
       subcategories: [
+        { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.bambino },
         { id: "scarpe-scuola", name: "Scarpe da scuola", image: IMG.bambinoSchool },
         { id: "sandali-scarpe-estive", name: "Sandali e scarpe estive", image: IMG.bambino },
         { id: "stivaletti-scarpe-invernali", name: "Stivaletti e scarpe invernali", image: IMG.bambinoSchool },
@@ -94,6 +99,7 @@ const IMG = {
       description: "Eleganza e raffinatezza per i momenti più importanti. Scarpe per matrimoni, feste e ogni occasione che richiede un look impeccabile.",
       heroImage: IMG.cerimonia,
       subcategories: [
+        { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.cerimonia },
         { id: "cerimonia-donna", name: "Cerimonia donna", image: IMG.donnaHeels },
         { id: "cerimonia-uomo", name: "Cerimonia uomo", image: IMG.uomoDress },
         { id: "sandali-cerimonia", name: "Sandali cerimonia", image: IMG.donnaSandals },
@@ -107,6 +113,7 @@ const IMG = {
       description: "Momenti speciali meritano scarpe speciali. Trovi da noi una selezione dedicata per battesimi, prime comunioni e cresime: scarpine bianche, modelli eleganti e accessori pensati per rendere unico ogni sacramento.",
       heroImage: IMG.battesimi,
       subcategories: [
+        { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.battesimi },
         { id: "battesimo", name: "Battesimo", image: IMG.battesimiDet },
         { id: "prima-comunione", name: "Prima Comunione", image: IMG.battesimi },
         { id: "cresima-cerimonie", name: "Cresima e cerimonie", image: IMG.bambinoSchool },
@@ -120,6 +127,7 @@ const IMG = {
       description: "Completa il tuo outfit con la borsa giusta o l'accessorio perfetto. Selezione di borse, portafogli, bigiotteria e molto altro.",
       heroImage: IMG.bags,
       subcategories: [
+        { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.bags },
         { id: "borse-borsette", name: "Borse e borsette", image: IMG.handbags },
         { id: "accessori-bigiotteria", name: "Accessori e bigiotteria", image: IMG.accessori },
         { id: "portafogli-pelletteria", name: "Portafogli e pelletteria", image: IMG.bags },
@@ -133,6 +141,7 @@ const IMG = {
       description: "Una selezione curata di abbigliamento per uomo e donna. Capi eleganti e casual selezionati per qualità e stile, a prezzi accessibili.",
       heroImage: IMG.abbigliamento,
       subcategories: [
+        { id: "tutti-prodotti", name: "Tutti i prodotti", image: IMG.abbigliamento },
         { id: "abbigliamento-donna", name: "Abbigliamento donna", image: IMG.womenCloth },
         { id: "capi-eleganti", name: "Capi eleganti", image: IMG.womenCloth },
         { id: "taglie-comode", name: "Taglie comode", image: IMG.abbigliamento },
