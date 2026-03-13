@@ -51,6 +51,17 @@ const IMG = {
       ],
     },
     {
+        id: "ciabatte-pantofole",
+        name: "Ciabatte e pantofole",
+        shortDesc: "Comfort per casa e relax",
+        description: "Ciabatte e pantofole pensate per il massimo comfort quotidiano. Modelli pratici e comodi, ideali per la casa, il tempo libero e i momenti di relax.",
+        heroImage: IMG.ciabatte,
+        subcategories: [
+          { id: "ciabatte-donna", name: "Ciabatte donna", image: IMG.donna },
+          { id: "ciabatte-uomo", name: "Ciabatte uomo", image: IMG.uomo },
+        ],
+      },
+    {
       id: "scarpecomode",
       name: "Scarpe comode",
       shortDesc: "Comfort, leggerezza e facilità di indossare",

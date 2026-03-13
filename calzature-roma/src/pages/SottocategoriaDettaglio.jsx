@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
@@ -7,7 +7,8 @@ import { getCategoryById, getSubcategoryById, categories } from "../components/c
 import { getProductsBySubcategory } from "../components/productsData";
 
 export default function SottocategoriaDettaglio() {
-  const params = new URLSearchParams(window.location.search);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
   const categoryId = params.get("categoria");
   const subcategoryId = params.get("sottocategoria");
   

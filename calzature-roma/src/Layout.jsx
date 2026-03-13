@@ -34,23 +34,6 @@ export default function Layout({ children, currentPageName }) {
         html { scroll-behavior: smooth; }
       `}</style>
 
-      {/* Top bar */}
-      <div className="bg-[#1A1A1A] text-white/60 text-xs py-2 hidden md:block">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5">
-              <MapPin className="w-3 h-3" /> Cesano Boscone (MI)
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Phone className="w-3 h-3" /> +39 02 XXX XXXX
-            </span>
-          </div>
-          <span className="flex items-center gap-1.5">
-            <Mail className="w-3 h-3" /> info@calzatureroma.it
-          </span>
-        </div>
-      </div>
-
       {/* Navbar */}
       <nav className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-[#E5E5E5]" : "bg-white border-b border-[#E5E5E5]"
@@ -159,11 +142,11 @@ export default function Layout({ children, currentPageName }) {
               <div className="space-y-2.5 text-sm">
                 <p className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                  Cesano Boscone (MI)
+                  Via Roma, 83, 20090 Cesano Boscone (MI)
                 </p>
                 <p className="flex items-center gap-2">
                   <Phone className="w-4 h-4 shrink-0" />
-                  +39 02 XXX XXXX
+                  +39 02 4860 0006
                 </p>
                 <p className="flex items-center gap-2">
                   <Mail className="w-4 h-4 shrink-0" />

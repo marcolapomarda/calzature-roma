@@ -4,7 +4,7 @@ import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
 import { ArrowLeft, ChevronLeft, ChevronRight, MapPin, Check } from "lucide-react";
 import { getProductById } from "../components/productsData";
-import { getCategoryById } from "../components/categoriesData";
+import { getCategoryById, getSubcategoryById } from "../components/categoriesData";
 
 export default function ProdottoDettaglio() {
   const params = new URLSearchParams(window.location.search);
@@ -24,6 +24,7 @@ export default function ProdottoDettaglio() {
   }
 
   const category = getCategoryById(product.categoryId);
+  const subcategory = getSubcategoryById(product.categoryId, product.subcategoryId);
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % product.images.length);
@@ -39,11 +40,29 @@ export default function ProdottoDettaglio() {
       <section className="bg-[#F5F5F5] py-4">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-2 text-xs text-[#888888]">
-            <Link to={createPageUrl("Prodotti")} className="hover:text-[#1A1A1A]">Prodotti</Link>
+            <Link to={createPageUrl("Prodotti")} className="hover:text-[#1A1A1A]">
+              Prodotti
+            </Link>
             <span>/</span>
-            <Link to={createPageUrl(`CategoriaDettaglio?categoria=${product.categoryId}`)} className="hover:text-[#1A1A1A]">
+            <Link
+              to={createPageUrl(`CategoriaDettaglio?categoria=${product.categoryId}`)}
+              className="hover:text-[#1A1A1A]"
+            >
               {category?.name}
             </Link>
+            {subcategory && (
+              <>
+                <span>/</span>
+                <Link
+                  to={createPageUrl(
+                    `SottocategoriaDettaglio?categoria=${product.categoryId}&sottocategoria=${product.subcategoryId}`
+                  )}
+                  className="hover:text-[#1A1A1A]"
+                >
+                  {subcategory.name}
+                </Link>
+              </>
+            )}
             <span>/</span>
             <span className="text-[#1A1A1A]">{product.name}</span>
           </div>
@@ -119,7 +138,9 @@ export default function ProdottoDettaglio() {
               className="flex flex-col"
             >
               <div className="mb-4">
-                <p className="text-xs text-[#888888] uppercase tracking-wider mb-2">{product.subcategoryName}</p>
+                <p className="text-xs text-[#888888] uppercase tracking-wider mb-2">
+                  {subcategory?.name}
+                </p>
                 <h1 className="text-3xl md:text-4xl text-[#1A1A1A] font-display mb-4">
                   {product.name}
                 </h1>
