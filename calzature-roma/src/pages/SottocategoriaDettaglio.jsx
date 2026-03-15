@@ -141,7 +141,7 @@ export default function SottocategoriaDettaglio() {
                     )}
                   </div>
                   <div className="p-5">
-                    <h3 className="font-semibold text-[#1A1A1A] text-sm mb-2 font-display">
+                    <h3 className="font-semibold text-[#1A1A1A] text-md mb-2 font-display">
                       {product.name}
                     </h3>
                     <p className="text-xs text-[#555555] leading-relaxed mb-4">

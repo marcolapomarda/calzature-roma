@@ -40,7 +40,7 @@ export default function Layout({ children, currentPageName }) {
       }`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
           <Link to={createPageUrl("Home")} className="flex items-center gap-2">
-            <span className="text-xl md:text-2xl tracking-tight text-[#1A1A1A] font-display font-bold">
+            <span className="text-2xl md:text-3xl tracking-tight text-[#1A1A1A] font-display font-bold">
               Calzature Roma
             </span>
           </Link>
@@ -150,7 +150,7 @@ export default function Layout({ children, currentPageName }) {
                 </p>
                 <p className="flex items-center gap-2">
                   <Mail className="w-4 h-4 shrink-0" />
-                  info@calzatureroma.it
+                  calzatureromamilano83@gmail.com
                 </p>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Car, ExternalLink } from "lucide-react";
+import { MapPin, Phone, Mail, Car, ExternalLink, Clock } from "lucide-react";
 
 export default function Contatti() {
   return (
@@ -28,10 +28,10 @@ export default function Contatti() {
       </section>
 
       {/* Contact info + Map */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-10 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-            {/* Info cards */}
+            {/* Info cards + opening hours */}
             <div className="lg:col-span-2 space-y-4">
               {[
                 {
@@ -49,14 +49,35 @@ export default function Contatti() {
                 {
                   icon: Mail,
                   title: "Email",
-                  content: <a href="mailto:info@calzatureroma.it" className="text-sm text-[#1A1A1A] hover:text-[#555555] underline underline-offset-2">info@calzatureroma.it</a>,
+                  content: <a href="mailto:calzatureromamilano83@gmail.com" className="text-sm text-[#1A1A1A] hover:text-[#555555] underline underline-offset-2">calzatureromamilano83@gmail.com</a>,
                   delay: 0.2,
+                },
+                {
+                  icon: Clock,
+                  title: "Orari di apertura",
+                  content: (
+                    <div className="text-sm text-[#555555] space-y-1.5">
+                      <p className="flex justify-between gap-4">
+                        <span>Lunedì</span>
+                        <span className="font-medium">Mattina chiuso · 15:30 - 19:30</span>
+                      </p>
+                      <p className="flex justify-between gap-4">
+                        <span>Martedì - Sabato</span>
+                        <span className="font-medium">09:00 - 12:30 · 15:30 - 19:30</span>
+                      </p>
+                      <p className="flex justify-between gap-4">
+                        <span>Domenica</span>
+                        <span className="font-medium">Chiuso</span>
+                      </p>
+                    </div>
+                  ),
+                  delay: 0.3,
                 },
                 {
                   icon: Car,
                   title: "Parcheggio",
-                  content: <p className="text-sm text-[#555555]">Parcheggio disponibile nelle vicinanze.</p>,
-                  delay: 0.3,
+                  content: <p className="text-sm text-[#555555]">Parcheggio disponibile di fronte al negozio e nelle vicinanze.</p>,
+                  delay: 0.4,
                 },
               ].map((item) => (
                 <motion.div
@@ -119,6 +140,122 @@ export default function Contatti() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Contact form */}
+      <section className="py-10 md:py-16 bg-[#F5F5F5]">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-white rounded-2xl shadow-sm border border-[#E5E5E5] p-6 md:p-8"
+          >
+            <h2 className="text-2xl md:text-3xl text-[#1A1A1A] mb-2 font-display">
+              Scrivici un messaggio
+            </h2>
+            <p className="text-sm text-[#555555] mb-6">
+              Per richieste su disponibilità, misure o prodotti particolari puoi
+              inviarci un messaggio. Ti risponderemo all&apos;indirizzo email che
+              indichi qui sotto.
+            </p>
+
+            <form
+              action="https://formsubmit.co/5c20055513c74110a0bef46982388983"
+              method="POST"
+              className="space-y-4"
+            >
+              {/* FormSubmit options */}
+              <input type="hidden" name="_captcha" value="false" />
+              <input
+                type="hidden"
+                name="_subject"
+                value="Richiesta dal sito Calzature Roma"
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="nome"
+                    className="block text-xs font-medium text-[#555555] mb-1"
+                  >
+                    Nome e cognome
+                  </label>
+                  <input
+                    id="nome"
+                    name="nome"
+                    type="text"
+                    required
+                    className="w-full rounded-md border border-[#E5E5E5] px-3 py-2 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-xs font-medium text-[#555555] mb-1"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="w-full rounded-md border border-[#E5E5E5] px-3 py-2 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="oggetto"
+                  className="block text-xs font-medium text-[#555555] mb-1"
+                >
+                  Oggetto
+                </label>
+                <input
+                  id="oggetto"
+                  name="oggetto"
+                  type="text"
+                  className="w-full rounded-md border border-[#E5E5E5] px-3 py-2 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="messaggio"
+                  className="block text-xs font-medium text-[#555555] mb-1"
+                >
+                  Messaggio
+                </label>
+                <textarea
+                  id="messaggio"
+                  name="messaggio"
+                  rows={5}
+                  required
+                  className="w-full rounded-md border border-[#E5E5E5] px-3 py-2 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A] resize-vertical"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center gap-2 bg-[#1A1A1A] hover:bg-[#333333] text-white font-medium px-6 py-3 rounded-full text-sm transition-colors"
+              >
+                Invia messaggio
+              </button>
+
+              <p className="text-[11px] text-[#888888] mt-2">
+                Il messaggio verrà inviato a{" "}
+                <span className="underline">
+                  calzatureromamilano83@gmail.com
+                </span>
+                . Non utilizziamo i tuoi dati per newsletter o comunicazioni
+                promozionali automatiche.
+              </p>
+            </form>
+          </motion.div>
         </div>
       </section>
     </div>

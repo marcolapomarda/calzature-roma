@@ -1,17 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ShoppingBag, BadgeCheck, HeartHandshake, Users } from "lucide-react";
+import { Footprints, Gem, HeartHandshake, Users } from "lucide-react";
 
 const features = [
   {
-    icon: ShoppingBag,
-    title: "Grande assortimento",
-    desc: "Scarpe per ogni occasione: eleganti, casual, sportive e da cerimonia.",
+    icon: Footprints,
+    title: "Comfort e calzata",
+    desc: "Ampia scelta di calzature comode e di qualità, selezionate per garantire comfort e stabilità durante tutta la giornata.",
   },
   {
-    icon: BadgeCheck,
-    title: "Qualità e prezzo",
-    desc: "Ottimo rapporto qualità-prezzo con prodotti selezionati.",
+    icon: Gem,
+    title: "Cerimonia bambino",
+    desc: "Scarpe eleganti e abiti per battesimi, comunioni e cresime, con una selezione curata per i momenti più importanti.",
   },
   {
     icon: HeartHandshake,
@@ -21,7 +21,7 @@ const features = [
   {
     icon: Users,
     title: "Per tutta la famiglia",
-    desc: "Calzature e abbigliamento per uomo, donna e bambino.",
+    desc: "Scarpe per donna, uomo e bambino, dalle calzature eleganti a quelle più casual per tutti i giorni.",
   },
 ];
 
@@ -40,7 +40,7 @@ export default function FeaturesSection() {
             Perché scegliere Calzature Roma
           </h2>
           <p className="text-[#555555] max-w-lg mx-auto text-sm leading-relaxed">
-            Un negozio con trent'anni di storia, dove qualità e cortesia sono di casa.
+            Aiutiamo i nostri clienti a trovare scarpe comode, di qualità e adatte ad ogni occasione.
           </p>
         </motion.div>
 

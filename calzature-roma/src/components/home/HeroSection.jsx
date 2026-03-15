@@ -18,10 +18,12 @@ export default function HeroSection({ storeImage }) {
               Dal 1990 · Cesano Boscone
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] leading-[1.1] text-[#1A1A1A] mb-6 font-display">
-              Calzature, abbigliamento e accessori per tutta la famiglia
+              Comfort, eleganza e tradizione
             </h1>
             <p className="text-base text-[#555555] leading-relaxed mb-8 max-w-xl">
-              Da oltre 30 anni il punto di riferimento a Cesano Boscone per scarpe di qualità a prezzi accessibili. Trovi scarpe da donna, uomo, bambino, cerimonia, borse e abbigliamento.
+              Da oltre 30 anni siamo il punto di riferimento a Cesano Boscone per chi cerca calzature di qualità e comode da indossare ogni giorno.
+              <br />
+              In negozio trovi una grande selezione di scarpe per donna, uomo e bambino, oltre a scarpe e abiti per cerimonie come battesimi, comunioni e cresime.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
