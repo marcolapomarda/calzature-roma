@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function ImageGallery({ images }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 auto-rows-max md:auto-rows-fr">
       {images.map((img, i) => (
         <motion.div
           key={i}
@@ -16,7 +16,7 @@ export default function ImageGallery({ images }) {
           <img
             src={img.src}
             alt={img.alt}
-            className={`w-full object-cover ${i === 0 ? "h-64 md:h-full" : "h-56"}`}
+            className="w-full h-full object-cover"
           />
         </motion.div>
       ))}

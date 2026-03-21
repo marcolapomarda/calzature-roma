@@ -1,8 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Car, ExternalLink, Clock } from "lucide-react";
 
 export default function Contatti() {
+  const [formData, setFormData] = useState({ nome: "", email: "", oggetto: "", messaggio: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage("");
+
+    try {
+      const formDataObj = new FormData();
+      formDataObj.append("nome", formData.nome);
+      formDataObj.append("email", formData.email);
+      formDataObj.append("oggetto", formData.oggetto);
+      formDataObj.append("messaggio", formData.messaggio);
+      formDataObj.append("_captcha", "false");
+      formDataObj.append("_subject", "Richiesta dal sito Calzature Roma");
+
+      const response = await fetch("https://formsubmit.co/5c20055513c74110a0bef46982388983", {
+        method: "POST",
+        body: formDataObj,
+      });
+
+      if (response.ok) {
+        setSubmitMessage("Messaggio inviato con successo! Ti contatteremo presto.");
+        setFormData({ nome: "", email: "", oggetto: "", messaggio: "" });
+        setTimeout(() => setSubmitMessage(""), 5000);
+      } else {
+        setSubmitMessage("Errore nell'invio del messaggio. Riprova più tardi.");
+      }
+    } catch (error) {
+      setSubmitMessage("Errore nell'invio del messaggio. Riprova più tardi.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <div>
       {/* Hero */}
@@ -162,19 +204,7 @@ export default function Contatti() {
               indichi qui sotto.
             </p>
 
-            <form
-              action="https://formsubmit.co/5c20055513c74110a0bef46982388983"
-              method="POST"
-              className="space-y-4"
-            >
-              {/* FormSubmit options */}
-              <input type="hidden" name="_captcha" value="false" />
-              <input
-                type="hidden"
-                name="_subject"
-                value="Richiesta dal sito Calzature Roma"
-              />
-
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label
@@ -188,6 +218,8 @@ export default function Contatti() {
                     name="nome"
                     type="text"
                     required
+                    value={formData.nome}
+                    onChange={handleChange}
                     className="w-full rounded-md border border-[#E5E5E5] px-3 py-2 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]"
                   />
                 </div>
@@ -203,6 +235,8 @@ export default function Contatti() {
                     name="email"
                     type="email"
                     required
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-full rounded-md border border-[#E5E5E5] px-3 py-2 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]"
                   />
                 </div>
@@ -219,6 +253,8 @@ export default function Contatti() {
                   id="oggetto"
                   name="oggetto"
                   type="text"
+                  value={formData.oggetto}
+                  onChange={handleChange}
                   className="w-full rounded-md border border-[#E5E5E5] px-3 py-2 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]"
                 />
               </div>
@@ -235,16 +271,33 @@ export default function Contatti() {
                   name="messaggio"
                   rows={5}
                   required
+                  value={formData.messaggio}
+                  onChange={handleChange}
                   className="w-full rounded-md border border-[#E5E5E5] px-3 py-2 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A] resize-vertical"
                 />
               </div>
 
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 bg-[#1A1A1A] hover:bg-[#333333] text-white font-medium px-6 py-3 rounded-full text-sm transition-colors"
+                disabled={isSubmitting}
+                className="inline-flex items-center justify-center gap-2 bg-[#1A1A1A] hover:bg-[#333333] disabled:opacity-60 text-white font-medium px-6 py-3 rounded-full text-sm transition-colors"
               >
-                Invia messaggio
+                {isSubmitting ? "Invio in corso..." : "Invia messaggio"}
               </button>
+
+              {submitMessage && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`text-sm font-medium rounded-lg p-3 ${
+                    submitMessage.includes("successo")
+                      ? "bg-green-50 text-green-800"
+                      : "bg-red-50 text-red-800"
+                  }`}
+                >
+                  {submitMessage}
+                </motion.p>
+              )}
 
               <p className="text-[11px] text-[#888888] mt-2">
                 Il messaggio verrà inviato a{" "}
